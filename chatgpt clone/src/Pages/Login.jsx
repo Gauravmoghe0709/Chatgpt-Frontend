@@ -11,7 +11,7 @@ export default function Login() {
 	const handleSubmit = async(e) => {
 		e.preventDefault()
 		try {
-			const res = await axios.post("http://localhost:3000/user/loginuser",{
+			const res = await axios.post("https://chatgpt-backend-jr20.onrender.com/user/loginuser",{
 			email,password
 		},{withCredentials:true})
 		navigate("/home")

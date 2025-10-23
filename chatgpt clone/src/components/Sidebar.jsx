@@ -11,13 +11,13 @@ export default function Sidebar({ open, onClose }) {
   const handleNew = async () => {
     const title = prompt('Enter chat name', 'New chat')
     if (!title) return
-    const response = await axios.post("http://localhost:3000/userchats", { title }, { withCredentials: true })
+    const response = await axios.post("https://chatgpt-backend-jr20.onrender.com/userchats", { title }, { withCredentials: true })
     console.log(response)
     dispatch(createChat({ id: response.data.chat._id, title: response.data.chat.title }))
   }
 
   useEffect(() => {
-    axios.get("http://localhost:3000/userchats/getchats", { withCredentials: true })
+    axios.get("https://chatgpt-backend-jr20.onrender.com/userchats/getchats", { withCredentials: true })
       .then((res) => {
         console.log(res)
         dispatch(setchats(res.data.chat))
@@ -31,7 +31,7 @@ export default function Sidebar({ open, onClose }) {
 
 
     try {
-      const response = await axios.get(`http://localhost:3000/userchats/${chatid}`, { withCredentials: true })
+      const response = await axios.get(`https://chatgpt-backend-jr20.onrender.com/userchats/${chatid}`, { withCredentials: true })
       console.log(response)
       dispatch(setMessages({ chatId: chatid, messages: response.data.messages }))
       dispatch(selectChat(chatid))

@@ -23,7 +23,7 @@ export default function Home() {
     let activeChatId = currentChatId
     if (!activeChatId) {
       try {
-        const res = await axios.post('http://localhost:3000/userchats', { title: 'Conversation' }, { withCredentials: true })
+        const res = await axios.post('https://chatgpt-backend-jr20.onrender.com/userchats', { title: 'Conversation' }, { withCredentials: true })
         const serverChat = res.data.chat
         dispatch(createChat({ id: serverChat._id, title: serverChat.title }))
         activeChatId = serverChat._id
@@ -41,7 +41,7 @@ export default function Home() {
   }
 
   useEffect(() => {
-    const temp = io("http://localhost:3000", { withCredentials: true })
+    const temp = io("https://chatgpt-backend-jr20.onrender.com", { withCredentials: true })
     socketRef.current = temp
 
     const onAiResponse = (payload) => {
