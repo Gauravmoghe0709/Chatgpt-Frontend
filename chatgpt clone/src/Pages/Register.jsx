@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+
 
 export default function Register() {
   const [username, setUsername] = useState('')
@@ -7,11 +10,21 @@ export default function Register() {
   const [confirm, setConfirm] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
+  const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault()
-    if (!username || !email || !password || !confirm) return alert('Please fill all fields')
-    if (password !== confirm) return alert('Passwords do not match')
+    try {
+      const res = await axios.post("https://chatgpt-backend-jr20.onrender.com/user/newuser",{
+        username,email,password,confirm},{withCredentials:true})
+        console.log(res) 
+    } catch (error) {
+      console.log(error)
+    }
+
+    
+  
+
     alert(`Registered ${username} (${email})`)
   }
 
