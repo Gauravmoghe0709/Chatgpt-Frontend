@@ -18,14 +18,10 @@ export default function Register() {
       const res = await axios.post("https://chatgpt-backend-jr20.onrender.com/user/newuser",{
         username,email,password,confirm},{withCredentials:true})
         console.log(res) 
+        navigate("/")
     } catch (error) {
       console.log(error)
     }
-
-    
-  
-
-    alert(`Registered ${username} (${email})`)
   }
 
   return (

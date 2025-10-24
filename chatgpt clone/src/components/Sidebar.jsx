@@ -1,11 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { createChat, setchats, selectChat, setMessages } from '../store/chatSlice'
+import { createChat, setchats, selectChat, setMessages, clearChats } from '../store/chatSlice'
+import { useNavigate } from 'react-router-dom'
 import axios from "axios"
 import { useEffect } from 'react'
 
 
 export default function Sidebar({ open, onClose }) {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const chats = useSelector((s) => s.chat.chats)
 
   const handleNew = async () => {
@@ -43,6 +45,16 @@ export default function Sidebar({ open, onClose }) {
     }
   }
 
+  async function handleLogout() {
+    try {
+      await axios.post("https://chatgpt-backend-jr20.onrender.com/user/logoutuser", {}, { withCredentials: true })
+    } catch (error) {
+      console.log('logout error', error)
+    }
+    dispatch(clearChats())
+    navigate('/login')
+  }
+
 
   return (
     <>
@@ -65,6 +77,11 @@ export default function Sidebar({ open, onClose }) {
               </button>
             ))
           )}
+        </div>
+        <div className="p-4 border-t border-white/6">
+          <button onClick={handleLogout} className="w-full text-left px-4 py-2 bg-transparent hover:bg-white/3 rounded-md text-sm text-slate-200 flex items-center justify-center">
+            Logout
+          </button>
         </div>
       </aside>
     </>
