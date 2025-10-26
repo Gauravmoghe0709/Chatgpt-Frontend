@@ -5,6 +5,7 @@ import axios from "axios"
 import { useEffect } from 'react'
 
 
+
 export default function Sidebar({ open, onClose }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -48,11 +49,11 @@ export default function Sidebar({ open, onClose }) {
   async function handleLogout() {
     try {
       await axios.post("https://chatgpt-backend-jr20.onrender.com/user/logoutuser", {}, { withCredentials: true })
+      dispatch(clearChats())
+      navigate('/')
     } catch (error) {
       console.log('logout error', error)
     }
-    dispatch(clearChats())
-    navigate('/login')
   }
 
 
@@ -78,7 +79,7 @@ export default function Sidebar({ open, onClose }) {
             ))
           )}
         </div>
-        <div className="p-4 border-t border-white/6">
+        <div className="pt-2 border-white/6 bg-red-700 rounded-sm">
           <button onClick={handleLogout} className="w-full text-left px-4 py-2 bg-transparent hover:bg-white/3 rounded-md text-sm text-slate-200 flex items-center justify-center">
             Logout
           </button>
